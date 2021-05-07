@@ -31,7 +31,7 @@ import Foundation
 /// If the object was freed from memory, rebuilds it.
 ///
 /// Uses `NSLock` for synchronization between the threads.
-final class WeakSingle<T: AnyObject>: IDependency {
+public final class WeakSingle<T: AnyObject>: IDependency {
 
     private let builder: () -> T
 
