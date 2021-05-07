@@ -1,6 +1,7 @@
+[![Tests](https://github.com/avreolko/VCDependency/workflows/Tests/badge.svg?branch=master)](https://github.com/avreolko/VCDependency/actions/workflows/tests.yml)
 # VCDependency
 
-Basic dependency life cycle management.
+Basic dependency lifecycle management.
 
 ## Features
 - Factory
