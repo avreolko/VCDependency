@@ -30,7 +30,7 @@ public final class Factory<T: Any>: IDependency {
 
     private let builder: () -> T
 
-    init(builder: @escaping () -> T) {
+    public init(builder: @escaping () -> T) {
         self.builder = builder
     }
 

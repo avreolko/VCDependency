@@ -40,7 +40,7 @@ public final class Single<T: AnyObject>: IDependency {
     private var object: T?
     private let lock = NSLock()
 
-    init(builder: @escaping () -> T) {
+    public init(builder: @escaping () -> T) {
         self.builder = builder
     }
 

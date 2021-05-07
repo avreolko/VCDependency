@@ -38,7 +38,7 @@ final class WeakSingle<T: AnyObject>: IDependency {
     private weak var object: T?
     private let lock = NSLock()
 
-    init(builder: @escaping () -> T) {
+    public init(builder: @escaping () -> T) {
         self.builder = builder
     }
 
