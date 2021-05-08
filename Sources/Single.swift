@@ -32,7 +32,8 @@ import Foundation
 /// Designed for common dependencies.
 /// Life cycle of these objects should be the same as the application.
 ///
-/// Warning! Even though the generic constraint is `Any`, this container is only for reference types.
+/// Warning!
+/// Even though the generic constraint is `Any`, this container is intended for reference types.
 /// Be careful with what you put inside.
 ///
 /// Uses `NSLock` for synchronization between the threads.
@@ -58,8 +59,6 @@ public final class Single<T: Any>: IDependency {
         self.object = object
 
         lock.unlock()
-
-        assert(type(of: object) is AnyClass, "Generic type `T` isn't a reference type!")
 
         return object
     }
