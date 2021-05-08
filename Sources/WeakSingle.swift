@@ -30,12 +30,16 @@ import Foundation
 /// Holds a weak reference to the object inside.
 /// If the object was freed from memory, rebuilds it.
 ///
+/// Warning!
+/// Even though the generic constraint is `Any`, this container is intended for reference types.
+/// Be careful with what you put inside.
+///
 /// Uses `NSLock` for synchronization between the threads.
-public final class WeakSingle<T: AnyObject>: IDependency {
+public final class WeakSingle<T: Any>: IDependency {
 
     private let builder: () -> T
 
-    private weak var object: T?
+    private weak var object: AnyObject?
     private let lock = NSLock()
 
     public init(builder: @escaping () -> T) {
@@ -44,13 +48,13 @@ public final class WeakSingle<T: AnyObject>: IDependency {
 
     public func get() -> T {
 
-        if let alreadyBuilt = object { return alreadyBuilt }
+        if let alreadyBuilt = object as? T { return alreadyBuilt }
 
         lock.lock()
 
-        if let alreadyBuilt = object { return alreadyBuilt }
+        if let alreadyBuilt = object as? T { return alreadyBuilt }
         let object = builder()
-        self.object = object
+        self.object = object as AnyObject
 
         lock.unlock()
 
