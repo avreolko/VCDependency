@@ -37,7 +37,7 @@ import Foundation
 /// Be careful with what you put inside.
 ///
 /// Uses `NSLock` for synchronization between the threads.
-public final class Single<T: Any>: IDependency {
+public final class Single<T: Any> {
 
     private let builder: () -> T
 

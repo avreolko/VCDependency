@@ -35,7 +35,7 @@ import Foundation
 /// Be careful with what you put inside.
 ///
 /// Uses `NSLock` for synchronization between the threads.
-public final class WeakSingle<T: Any>: IDependency {
+public final class WeakSingle<T: Any> {
 
     private let builder: () -> T
 

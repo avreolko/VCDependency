@@ -26,15 +26,19 @@
 /// Factory dependency.
 ///
 /// Rebuilds object on each `get()` invocation.
-public final class Factory<T: Any>: IDependency {
+public final class Factory<T: Any, P: Any> {
 
-    private let builder: () -> T
+    private let builder: (P) -> T
 
-    public init(builder: @escaping () -> T) {
+    public init(builder: @escaping (P) -> T) {
         self.builder = builder
     }
 
-    public func get() -> T {
-        builder()
+    public func get(with parameters: P) -> T {
+        builder(parameters)
     }
+}
+
+public extension Factory where P == Void {
+    func get() -> T { get(with: ()) }
 }
