@@ -35,29 +35,33 @@ import Foundation
 /// Be careful with what you put inside.
 ///
 /// Uses `NSLock` for synchronization between the threads.
-public final class WeakSingle<T: Any> {
+public final class WeakSingle<T: Any, P: Any> {
 
-    private let builder: () -> T
+    private let builder: (P) -> T
 
     private weak var object: AnyObject?
     private let lock = NSLock()
 
-    public init(builder: @escaping () -> T) {
+    public init(builder: @escaping (P) -> T) {
         self.builder = builder
     }
 
-    public func get() -> T {
+    public func get(with parameters: P) -> T {
 
         if let alreadyBuilt = object as? T { return alreadyBuilt }
 
         lock.lock()
 
         if let alreadyBuilt = object as? T { return alreadyBuilt }
-        let object = builder()
+        let object = builder(parameters)
         self.object = object as AnyObject
 
         lock.unlock()
 
         return object
     }
+}
+
+public extension WeakSingle where P == Void {
+    func get() -> T { get(with: ()) }
 }
